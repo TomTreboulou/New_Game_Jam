@@ -1,0 +1,9 @@
+<Building>
+  <name: "Marché", x: 40, y: 300>
+  <name: "Menuiserie", x: 50, y: 100>
+  <name: "Carrière", x: 100, y: 100>
+  <name: "Forge", x: 50, y: 220>
+  <name: "Restaurant", x: 500, y: 100>
+  <name: "Hotel", x: 140, y: 50>
+  <name: "Banque", x: 550, y: 180>
+</Building>

@@ -1,0 +1,9 @@
+<map>
+	<building name="Marcher" x="70" y="300"></building>
+	<building name="Menuiserie" x="200" y="100"></building>
+	<building name="Carriere" x="100" y="100"></building>
+	<building name="Forge" x="105" y="220"></building>
+	<building name="Restaurant" x="500" y="50"></building>
+	<building name="Hotel" x="140" y="0"></building>
+	<building name="Banque" x="400" y="180"></building>
+</map>
