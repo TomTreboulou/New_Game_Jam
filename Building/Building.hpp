@@ -45,25 +45,26 @@ class Building {
 
 class Spawner : public Building {
         public:
+                enum dest {MARKET, HOSTEL, RESTAURANT};
                 Spawner(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl, int type);
 
-                void    managePnjs(sf::RenderWindow *window);
+                void    managePnjs(sf::RenderWindow *window, std::map<std::string, Building *> &destination);
 
                 // setter
-                void    Update(int &money, int &wood, int &stone, int &iron) ;
-
+                void    Update(int &money, int &wood, int &stone, int &iron);
                 // getter
                 bool    getType() const {return _type;};
 
+                bool    generatePnj(Building *build);
+                std::map<int, Building *> &DestinationWrapper(std::map<std::string, Building *> &buildings, bool get);
         protected:
-        private:
-                bool            _generatePnj();
-
 
                 bool                    _type;
                 std::vector<Pnj>        _pnjs;
+                int                     _maxPnjs;
                 double                  _delay;
                 sf::Clock               _clock;
+
 };
 
 class Generator : public Building {

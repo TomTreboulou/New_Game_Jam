@@ -18,6 +18,8 @@
 #include "../Config/ParserTree.hpp"
 #include "../Config/ParserXML.hpp"
 #include "../PNJ/Pnj.hpp"
+#include "Icon.hpp"
+#include "../Pop-up/Popup.hpp"
 
 #define GAME_NAME "Idle World"
 
@@ -51,8 +53,11 @@ class Game {
         std::map<std::string, Building *> buildings;
 		////
 
-		bool status;
+		int status;
 
+		Icon icon;
+
+		Popup *popup;
 	protected:
 	private:
 };

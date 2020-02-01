@@ -18,6 +18,10 @@ void draw(Game *game)
         it->second->spr.setPosition((sf::Vector2f){game->movement.x + it->second->getPos().x, game->movement.y + it->second->getPos().y});
         game->window->draw(it->second->spr);
     }
+    for (auto it = game->icon._icon.begin() ; it != game->icon._icon.end(); it++) {
+		(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
+	}
+    game->icon.draw(game->window);
     game->window->draw(player.money->sprite);
     game->window->draw(player.money->text);
     game->window->draw(player.wood->sprite);
@@ -33,19 +37,27 @@ void event_game(Game *game)
 {
     sf::Vector2u size = game->window->getSize();
     game->actual = sf::Mouse::getPosition();
-
+    int random = rand() % 10;
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && game->actual.y - game->movement.y <= 600 && game->actual.x - game->movement.x >= 1160 && game->click == false)  {
             player.setWood(1);
             game->click = true;
+            random = rand() % 10;
+            if (random == 1) {
+                player.setMoney(1);
+            }
     } else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left) && game->actual.y - game->movement.y <= 600 && game->actual.x - game->movement.x >= 1160) {
         game->click = false;
     } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && game->actual.y - game->movement.y <= 550 && game->actual.y - game->movement.y >= 160 && game->actual.x - game->movement.x <= 815 && game->actual.x - game->movement.x >= 160 && game->click == false){
         player.setStone(1);
         game->click = true;
+        random = rand() % 10;
+        if (random == 1) {
+            player.setMoney(1);
+        }
     } else if (!sf::Mouse::isButtonPressed(sf::Mouse::Left) && game->actual.y - game->movement.y <= 550 && game->actual.y - game->movement.y >= 160 && game->actual.x - game->movement.x <= 815 && game->actual.x - game->movement.x >= 160){
         game->click = false;
-    }else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         sf::Vector2i tmp = game->last;
         game->movement.x -= abs(game->last.x - game->actual.x) > 1 ? game->last.x - game->actual.x : 0;
         game->movement.y -= abs(game->last.y - game->actual.y) > 1 ? game->last.y - game->actual.y : 0;
@@ -56,8 +68,12 @@ void event_game(Game *game)
         game->background.setPosition(game->movement);
     }
     game->last = sf::Mouse::getPosition();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        game->status = 1;
+    }
     if (game->event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         game->window->close();
+    game->icon.update();
 }
 
 void the_game(Game *game)
@@ -69,18 +85,21 @@ void the_game(Game *game)
     game->window->display();
 }
 
-void menu(Game *game)
+void popup(Game *game)
 {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        game->status = 0;
+    }
 }
 
 void start(Game *game)
 {
     while (game->window->isOpen())
     {
-        if (game->status == true) {
+        if (game->status == 0) {
             the_game(game);
-        } else if (game->status == false) {
-            menu(game);
+        } else if (game->status == 1) {
+            popup(game);
         }
     }
 }

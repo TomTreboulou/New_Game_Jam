@@ -13,7 +13,7 @@ Game::Game(std::string file)
     Parser::Parser_XML parser;
 
     this->movement = {0, 0};
-    this->status = true;
+    this->status = 0;
     this->move = false;
     this->click = false;
 	parser.load_file("Config/map1.xml");
@@ -26,8 +26,10 @@ Game::Game(std::string file)
             this->buildings[node->getAttribut("name")] = building;
         }
 	}
-    this->window = new sf::RenderWindow(modes[0], GAME_NAME, sf::Style::Fullscreen);
-    //this->window = new sf::RenderWindow(modes[0], GAME_NAME);
+    this->popup = new Popup(this->buildings);
+    //this->window = new sf::RenderWindow(modes[0], GAME_NAME, sf::Style::Fullscreen);
+    // this->icon = Icon(10, (sf::Vector2f){0, 0}, (sf::Vector2f){800, 800}, "assets/icon.png");
+    this->window = new sf::RenderWindow(modes[0], GAME_NAME);
     this->window->setFramerateLimit(60);
     this->window->setMouseCursorVisible(false);
 	this->tex_mouse.loadFromFile("./assets/cursor.png");

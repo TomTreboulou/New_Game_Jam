@@ -7,7 +7,7 @@
 
 #include "Pnj.hpp"
 
-Pnj::Pnj(Spawner &build)
+Pnj::Pnj(Building &build, bool type)
 {
     this->_map_idx = 1;
     this->_clock = sf::Clock();
@@ -18,21 +18,21 @@ Pnj::Pnj(Spawner &build)
 
 
     if (!build.getName().compare("Market")) {
-        if (build.getType()) {
+        if (type) {
             this->_map = {{1765,1440}, {1475, 1440}, {1475, 975}, {1640, 975}, {1640, 900}};
         } else {
             this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 975}, {1640, 975}, {1640, 900}};
         }
     }
     else if (!build.getName().compare("Restaurant")) {
-        if (build.getType()) {
+        if (type) {
             this->_map = {{1765,1440}, {1475,1440}, {1475, 2060}, {1215, 2016}, {1215, 1870}};
         } else {
             this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 2060}, {1215, 2016}, {1215, 1870}};
         }
     }
     else if (!build.getName().compare("Hostel")) {
-        if (build.getType()) {
+        if (type) {
             this->_map = {{1765,1440}, {1990, 1440}, {1990, 2025}, {1705, 2025}, {1705, 1915}};
         } else {
             this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 2025}, {1705, 2025}, {1705, 1915}};
@@ -90,6 +90,7 @@ bool
 Pnj::movePnj(void)
 {
     if (_clock.getElapsedTime().asSeconds() > 0.034) {
+
         if (_movement[_map_idx].x) {
             if (_movement[_map_idx].x > 0) {
                 if (_map[_map_idx + 1].x >= _pos.x) {
@@ -118,7 +119,6 @@ Pnj::movePnj(void)
         } else {
 
             if (_movement[_map_idx].y > 0) {
-                
                 if (_map[_map_idx + 1].y >= _pos.y) {
                     ++_map_idx;
                     if (_map_idx >= _map.size()) {
@@ -143,7 +143,6 @@ Pnj::movePnj(void)
 
             }
         }
-
         _clock.restart();
     }
     return false;
