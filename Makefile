@@ -7,11 +7,11 @@
 
 CC = g++
 
-SRCS = $(wildcard *.cpp Game/*.cpp)
+SRCS = $(wildcard *.cpp Game/*.cpp Player/*.cpp Building/*.cpp Config/*.cpp PNJ/*.cpp)
 
 OBJS = $(SRCS:.cpp=.o)
 
-CFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+CFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -W -Wall -Wextra
 
 NAME = my_idle_world
 

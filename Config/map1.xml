@@ -1,9 +1,10 @@
 <map>
-	<building name="Marcher" x="70" y="300"></building>
-	<building name="Menuiserie" x="200" y="100"></building>
-	<building name="Carriere" x="100" y="100"></building>
-	<building name="Forge" x="105" y="220"></building>
-	<building name="Restaurant" x="500" y="50"></building>
-	<building name="Hotel" x="140" y="0"></building>
-	<building name="Banque" x="400" y="180"></building>
+	<building name="Market" x="1560" y="630" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="LumberMill" x="2140" y="1380" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="Quarry" x="575" y="1300" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="Forge" x="750" y="1910" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="Restaurant" x="1130" y="1605" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="Hotel" x="1550" y="1670" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0"></building>
+	<building name="Spawner1" x="1680" y="1040" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0" id="0"></building>
+	<building name="Spawner2" x="1045" y="1110" MoneyFactor="2" WoodFactor="2" StoneFactor="2" IronFactor="2" lvl="0" id="1"></building>
 </map>

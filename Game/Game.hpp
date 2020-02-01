@@ -13,20 +13,50 @@
 #include <vector>
 #include <map>
 #include "Utile.hpp"
+#include "../Player/Player.hpp"
 #include "../Building/Building.hpp"
+#include "../Config/ParserTree.hpp"
+#include "../Config/ParserXML.hpp"
+#include "../PNJ/Pnj.hpp"
 
 #define GAME_NAME "Idle World"
+
+class Player;
+class Building;
 
 class Game {
 	public:
 		Game(std::string file = "Config/map1.yml");
 		~Game();
+		////
         sf::RenderWindow *window;
         sf::Event event;
+		////
+
+		sf::Texture tex_back;
+		sf::Sprite background;
+		////
+
+		sf::Vector2f movement;
+		sf::Vector2i actual;
+		sf::Vector2i last;
+		bool move;
+		bool click;
+
+		sf::Vector2i mouse;
+		sf::Texture tex_mouse;
+		sf::Sprite spr_mouse;
+		////
+
         std::map<std::string, Building *> buildings;
+		////
+
+		bool status;
 
 	protected:
 	private:
 };
+
+extern Player player;
 
 #endif /* !GAME_HPP_ */

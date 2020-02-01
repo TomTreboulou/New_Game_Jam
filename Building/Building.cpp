@@ -7,7 +7,7 @@
 
 #include "Building.hpp"
 
-Building::Building(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor)
+Building::Building(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl)
 {
     this->_pos.x = x;
     this->_pos.y = y;
@@ -17,7 +17,11 @@ Building::Building(int x, int y, std::string name, float MoneyFactor, float Wood
     this->_moneyFactor = MoneyFactor;
     this->_stoneFactor = StoneFactor;
     this->_ironFactor = IronFactor;
-    this->_level = 1;
+    this->_level = lvl;
+    this->tex.loadFromFile(std::string("./assets/" + this->_name + ".png").c_str());
+    this->tex.loadFromFile("./assets/" + name + ".png");
+    this->spr.setTexture(this->tex, false);
+    this->spr.setPosition(this->_pos);
 }
 
 Building::~Building()
@@ -37,6 +41,11 @@ sf::Vector2f Building::getPos() const
 int Building::getLevel() const
 {
     return (this->_level);
+}
+
+std::string Building::getName() const
+{
+    return this->_name;
 }
 
 std::vector<int> Building::getCost() const
