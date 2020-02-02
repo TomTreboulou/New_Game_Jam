@@ -28,6 +28,10 @@ class Building {
                 virtual std::vector<int>  getCost() const;
                 virtual std::string       getName() const;
                 virtual int               getValue() const;
+                virtual int             getMoneyFactor() const { return _moneyFactor; };
+                virtual int             getWoodFactor() const { return _woodFactor; };
+                virtual int             getStoneFactor() const { return _stoneFactor; };
+                virtual int             getIronFactor() const { return _ironFactor; };
 
                 sf::Texture       tex;
 		sf::Sprite        spr;

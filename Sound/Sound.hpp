@@ -27,6 +27,7 @@ class Sound {
         Son *wood;
         Son *stone;
         Son *upgrade;
+        Son *create;
 
     protected:
     private:

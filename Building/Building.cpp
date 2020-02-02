@@ -86,7 +86,7 @@ void Building::Update()
 {
     if ((player.getMoney() >= (this->_moneyFactor * (this->_level + 1))) && (player.getWood() >= (this->_woodFactor * (this->_level + 1))) && (player.getStone() >= (this->_stoneFactor * (this->_level + 1))) && (player.getIron() >= (this->_ironFactor * (this->_level + 1)))) {
         if (!this->_level) {
-            player.sound->upgrade->sound.play();
+            player.sound->create->sound.play();
             this->tex.loadFromFile("./assets/" + this->_name + ".png");
             this->spr.setTexture(this->tex, false);
             this->spr.setTextureRect((sf::IntRect){0, 0, (int)this->tex.getSize().x, (int)this->tex.getSize().y});

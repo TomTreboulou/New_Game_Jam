@@ -54,9 +54,12 @@ void draw(Game *game)
     game->window->draw(player.iron->sprite);
     game->window->draw(player.iron->text);
     game->window->draw(game->spr_mouse);
-    if (game->status) {
+    if (game->status == 1) {
         game->window->draw(game->popup->spr);
         game->popup->DrawAll(game->window);
+        game->window->draw(game->spr_mouse);
+    } else if (game->status == 2) {
+        game->menu->Draw(game->window);
         game->window->draw(game->spr_mouse);
     }
 }
@@ -108,11 +111,13 @@ void event_game(Game *game)
         while (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab) || sf::Keyboard::isKeyPressed(sf::Keyboard::I));
         game->status = 1;
     }
-    if (game->event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    if (game->event.type == sf::Event::Closed)
         game->window->close();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        game->status = 2;
 }
 
-void menu(Game *game)
+void achat(Game *game)
 {
     sf::Vector2i actual = sf::Mouse::getPosition();
 
@@ -146,6 +151,28 @@ void menu(Game *game)
     }
 }
 
+void menu(Game *game)
+{
+    sf::Vector2i actual = sf::Mouse::getPosition();
+
+    game->spr_mouse.setPosition((sf::Vector2f){(float)actual.x, (float)actual.y});
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        while(sf::Mouse::isButtonPressed(sf::Mouse::Left));
+        if (actual.x >= game->menu->_beg_b1.x && actual.y >= game->menu->_beg_b1.y && actual.x <= game->menu->_end_b1.x && actual.y <= game->menu->_end_b1.y)
+            game->status = 0;
+        else if (actual.x >= game->menu->_beg_b2.x && actual.y >= game->menu->_beg_b2.y && actual.x <= game->menu->_end_b2.x && actual.y <= game->menu->_end_b2.y) {
+            game->load("Config/save.xml");
+            player.sound->create->sound.play();
+            game->status = 0;
+        } else if (actual.x >= game->menu->_beg_b3.x && actual.y >= game->menu->_beg_b3.y && actual.x <= game->menu->_end_b3.x && actual.y <= game->menu->_end_b3.y) {
+            game->save("Config/save.xml");
+            player.sound->create->sound.play();
+            game->status = 0;
+        } else if (actual.x >= game->menu->_beg_b4.x && actual.y >= game->menu->_beg_b4.y && actual.x <= game->menu->_end_b4.x && actual.y <= game->menu->_end_b4.y)
+            game->window->close();
+    }
+}
+
 void start(Game *game)
 {
     while (game->window->isOpen())
@@ -154,6 +181,8 @@ void start(Game *game)
             while (game->window->pollEvent(game->event))
                 event_game(game);
         } else if (game->status == 1) {
+            achat(game);
+        } else if (game->status == 2) {
             menu(game);
         }
         draw(game);

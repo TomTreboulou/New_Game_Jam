@@ -21,6 +21,9 @@
 #include "../PNJ/Pnj.hpp"
 #include "Icon.hpp"
 #include "../Pop-up/Popup.hpp"
+#include "../Menu/Menu.hpp"
+#include <fstream>
+#include <iostream>
 
 #define GAME_NAME "Idle World"
 
@@ -29,11 +32,15 @@ class Building;
 class Popup;
 class Icon;
 class Sound;
+class Menu;
+
 
 class Game {
 	public:
-		Game(std::string file = "Config/map1.yml");
+		Game(std::string file = "Config/map1.xml");
 		~Game();
+		void save(const std::string &file);
+		void load(const std::string &file);
 		////
         sf::RenderWindow *window;
         sf::Event event;
@@ -66,6 +73,7 @@ class Game {
 		Icon icon_click_wood;
 
 		Popup *popup;
+		Menu *menu;
 	protected:
 	private:
 };
