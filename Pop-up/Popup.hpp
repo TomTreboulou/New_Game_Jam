@@ -16,6 +16,7 @@ class Line {
     public:
         Line(std::string path2, sf::Vector2f pos, std::vector<int> cost);
         void updateCost(std::vector<int> cost);
+        sf::Vector2f box_pos;
         sf::Font font_stone;
         sf::Font font_money;
         sf::Font font_wood;
@@ -39,6 +40,8 @@ class Popup {
         Line *Forge;
         Line *Restaurant;
         Line *Hotel;
+        sf::Texture tex;
+        sf::Sprite spr;
 
 	protected:
 	private:

@@ -28,7 +28,8 @@ Game::Game(std::string file)
 	}
     this->popup = new Popup(this->buildings);
     //this->window = new sf::RenderWindow(modes[0], GAME_NAME, sf::Style::Fullscreen);
-    // this->icon = Icon(10, (sf::Vector2f){0, 0}, (sf::Vector2f){800, 800}, "assets/icon.png");
+    // this->icon_wood = Icon(10, (sf::Vector2f){1160, 0}, (sf::Vector2f){2055, 600}, "assets/icon_wood.png");
+    // this->icon_stone = Icon(5, (sf::Vector2f){160, 160}, (sf::Vector2f){800, 550}, "assets/icon_stone.png");
     this->window = new sf::RenderWindow(modes[0], GAME_NAME);
     this->window->setFramerateLimit(60);
     this->window->setMouseCursorVisible(false);

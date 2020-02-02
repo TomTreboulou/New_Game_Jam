@@ -32,12 +32,11 @@ class Icon {
 				sf::Texture tex;
 				sf::Sprite spr;
 				sf::Vector2f pos;
-				char color;
+				unsigned char color;
 				Img(sf::Vector2f pos1, sf::Vector2f pos2, const std::string &file) {
 					this->tex.loadFromFile(file);
-					this->tex.loadFromFile("wood.png");
 		    		this->spr.setTexture(this->tex, false);
-					this->color = rand() % 100 + 20;
+					this->color = rand() % 200 + 50;
 					this->spr.setColor(sf::Color(255, 255, 255, this->color));
 					pos.x = pos1.x + rand() % (int)(pos2.x - pos1.x);
 					pos.y = pos1.y + rand() % (int)(pos2.y - pos1.y);
@@ -48,13 +47,18 @@ class Icon {
 			this->_icon.push_back(new Img(this->_pos1, this->_pos2, this->_file));
 		};
 		void update() {
+			if (this->_clock.getElapsedTime().asSeconds() < 0.01)
+				return;
+			this->_clock.restart();
 			for (auto it = this->_icon.begin() ; it != this->_icon.end(); it++) {
 				(*it)->color--;
+				(*it)->pos.y += rand() % 2 ? 1 : 0;
 				if ((*it)->color <= 0) {
 					this->_icon.erase(it);
 					this->add();
 				} else {
 					(*it)->spr.setColor(sf::Color(255, 255, 255, (*it)->color));
+					(*it)->spr.setPosition((*it)->pos);
 				}
 			}
 		};
@@ -68,6 +72,7 @@ class Icon {
 		std::string _file;
 		sf::Vector2f _pos1;
 		sf::Vector2f _pos2;
+		sf::Clock _clock;
 };
 
 #endif /* !ICON_HPP_ */

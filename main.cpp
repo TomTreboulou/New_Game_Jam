@@ -12,16 +12,29 @@ Player player;
 void draw(Game *game)
 {
     sf::Vector2i actual = sf::Mouse::getPosition();
+    // game->icon_wood.update();
+    // game->icon_stone.update();
     game->spr_mouse.setPosition((sf::Vector2f){(float)actual.x, (float)actual.y});
     game->window->draw(game->background);
     for(auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
         it->second->spr.setPosition((sf::Vector2f){game->movement.x + it->second->getPos().x, game->movement.y + it->second->getPos().y});
         game->window->draw(it->second->spr);
     }
-    for (auto it = game->icon._icon.begin() ; it != game->icon._icon.end(); it++) {
-		(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
-	}
-    game->icon.draw(game->window);
+    //  for (auto it = game->icon_wood._icon.begin() ; it != game->icon_wood._icon.end(); it++) {
+	//  	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
+	//  }
+    // for (auto it = game->icon_stone._icon.begin() ; it != game->icon_stone._icon.end(); it++) {
+	//  	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
+	//  }
+    for (auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
+        if (it->first.compare("Spawner") > 0) {
+std::cerr << "before call\n";
+            (static_cast<Spawner *> (it->second))->managePnjs(game->window, game->buildings);
+std::cerr << "after call\n";
+        }
+    }
+    // game->icon_wood.draw(game->window);
+    // game->icon_stone.draw(game->window);
     game->window->draw(player.money->sprite);
     game->window->draw(player.money->text);
     game->window->draw(player.wood->sprite);
@@ -73,23 +86,25 @@ void event_game(Game *game)
     }
     if (game->event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         game->window->close();
-    game->icon.update();
 }
 
 void the_game(Game *game)
 {
     while (game->window->pollEvent(game->event))
         event_game(game);
-    game->window->clear();
     draw(game);
     game->window->display();
 }
 
-void popup(Game *game)
+void menu(Game *game)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        while (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape));
         game->status = 0;
     }
+    //game->window->clear();
+    game->window->draw(game->popup->spr);
+    game->window->display();
 }
 
 void start(Game *game)
@@ -99,7 +114,7 @@ void start(Game *game)
         if (game->status == 0) {
             the_game(game);
         } else if (game->status == 1) {
-            popup(game);
+            menu(game);
         }
     }
 }

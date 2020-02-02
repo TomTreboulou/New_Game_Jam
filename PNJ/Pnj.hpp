@@ -18,7 +18,7 @@ class Building;
 
 class Pnj {
 	public:
-                Pnj(Spawner &build, bool type);
+                Pnj(Building &build, bool type);
 		~Pnj();
 
                 bool    movePnj(void);
@@ -38,10 +38,10 @@ class Pnj {
                 std::vector<sf::Vector2i> _movement;
                 sf::Vector2i    _pos;       // position du pnj
                 std::size_t     _map_idx;   // index de l'etape en cour
-                Building        _target;   // building a atteindre
-               sf::Texture     _texture;
-               sf::Sprite      _spt;
-               sf::Clock       _clock;
+                Building        *_target;   // building a atteindre
+                sf::Texture     _texture;
+                sf::Sprite      _spt;
+                sf::Clock       _clock;
 };
 
 #endif /* !PNJ_HPP_ */

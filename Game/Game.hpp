@@ -25,6 +25,8 @@
 
 class Player;
 class Building;
+class Popup;
+class Icon;
 
 class Game {
 	public:
@@ -55,7 +57,8 @@ class Game {
 
 		int status;
 
-		Icon icon;
+		Icon icon_wood;
+		Icon icon_stone;
 
 		Popup *popup;
 	protected:

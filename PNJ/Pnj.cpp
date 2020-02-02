@@ -89,7 +89,7 @@ Pnj::_setPos(void)
 bool
 Pnj::movePnj(void)
 {
-    if (_clock.getElapsedTime().asSeconds() > 0.034) {
+    if (_clock.getElapsedTime().asSeconds() > /*0.34*/0.8) {
 
         if (_movement[_map_idx].x) {
             if (_movement[_map_idx].x > 0) {
