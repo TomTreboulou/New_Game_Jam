@@ -12,7 +12,9 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <map>
+#include "../Sound/Sound.hpp"
 
+class Sound;
 class Ressource {
 	public:
 		Ressource(std::string str, sf::Vector2f pos, sf::Vector2f);
@@ -41,6 +43,10 @@ class Player {
 		Ressource *iron;
 		Ressource *wood;
 		Ressource *stone;
+		Sound *sound;
+		sf::Font font;
+    	sf::Text text;
+		int click;
 
 	protected:
 	private:

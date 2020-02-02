@@ -6,6 +6,7 @@
 */
 
 #include "Building.hpp"
+#include "../Game/Game.hpp"
 
 Building::Building(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl)
 {
@@ -18,7 +19,7 @@ Building::Building(int x, int y, std::string name, float MoneyFactor, float Wood
     this->_stoneFactor = StoneFactor;
     this->_ironFactor = IronFactor;
     this->_level = lvl;
-    this->_value = 0;
+    this->_value = (this->_level > 0) ? (this->_moneyFactor / 10) : 0;
     if (this->_level == 0)
         this->tex.loadFromFile("./assets/ruine.png");
     else
@@ -56,6 +57,20 @@ int Building::getValue() const
     return this->_value;
 }
 
+void Building::generate()
+{
+    if (this->isValid() && _clock.getElapsedTime().asSeconds() > 2) {
+        if (this->getName() == "Forge") {
+            player.setIron(1 * this->_level);
+        } else if (this->getName() == "LumberMill") {
+            player.setWood(2 * this->_level);
+        } else if (this->getName() == "Quarry") {
+            player.setStone(2 * this->_level);
+        }
+        _clock.restart();
+    }
+}
+
 std::vector<int> Building::getCost() const
 {
     std::vector<int> cost;
@@ -67,18 +82,23 @@ std::vector<int> Building::getCost() const
     return (cost);
 }
 
-void Building::Update(int &money, int &wood, int &stone, int &iron)
+void Building::Update()
 {
-    if ((money >= (this->_moneyFactor * (this->_level + 1))) && (wood >= (this->_woodFactor * (this->_level + 1))) && (stone >= (this->_stoneFactor * (this->_level + 1))) && (iron >= (this->_ironFactor * (this->_level + 1)))) {
-        if (!this->_level)
+    if ((player.getMoney() >= (this->_moneyFactor * (this->_level + 1))) && (player.getWood() >= (this->_woodFactor * (this->_level + 1))) && (player.getStone() >= (this->_stoneFactor * (this->_level + 1))) && (player.getIron() >= (this->_ironFactor * (this->_level + 1)))) {
+        if (!this->_level) {
+            player.sound->upgrade->sound.play();
             this->tex.loadFromFile("./assets/" + this->_name + ".png");
-        money -= (this->_moneyFactor * (this->_level + 1));
-        wood -= (this->_woodFactor * (this->_level + 1));
-        stone -= (this->_stoneFactor * (this->_level + 1));
-        iron -= (this->_ironFactor * (this->_level + 1));
+            this->spr.setTexture(this->tex, false);
+            this->spr.setTextureRect((sf::IntRect){0, 0, (int)this->tex.getSize().x, (int)this->tex.getSize().y});
+        }
+        player.sound->upgrade->sound.play();
+        player.setMoney(-1 * (this->_moneyFactor * (this->_level + 1)));
+        player.setWood(-1 * (this->_woodFactor * (this->_level + 1)));
+        player.setStone(-1 * (this->_stoneFactor * (this->_level + 1)));
+        player.setIron(-1 * (this->_ironFactor * (this->_level + 1)));
         this->_valid = true;
         this->_level += 1;
-        this->_value = (this->_moneyFactor / 50);
+        this->_value = ((this->_moneyFactor * (this->_level + 1) / 10));
     } else {
 
     }

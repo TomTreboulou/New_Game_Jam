@@ -8,7 +8,6 @@
 #ifndef PNJ_HPP_
 #define PNJ_HPP_
 
-#include "../Building/Building.hpp"
 #include "../Game/Game.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -37,13 +36,15 @@ class Pnj {
                         setSpritePos(mov);
                         window->draw(this->_spt);
                 };
-
+                void update_x(float x);
+                void update_y(float y);
 	protected:
 	private:
                 void    _setMove(void);
                 void    _targetReached(void);
                 void    _setPos(void);
 
+                int _index_rect;
                 std::vector<sf::Vector2f> _map;       // etape a atteindre
                 std::vector<sf::Vector2f> _movement;
                 sf::Vector2f    _pos;       // position du pnj
@@ -53,6 +54,7 @@ class Pnj {
                 sf::IntRect     _box;
                 sf::Sprite      _spt;
                 sf::Clock       _clock;
+                sf::Clock       _clock_rect;
 };
 
 #endif /* !PNJ_HPP_ */

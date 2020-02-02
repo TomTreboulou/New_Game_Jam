@@ -40,12 +40,13 @@ class Popup {
         Line *Quarry;
         Line *Restaurant;
         Line *Hotel;
+        Line *Forge;
         sf::Texture tex;
         sf::Sprite spr;
+        std::map<std::string, Building *> _buildings;
 
 	protected:
 	private:
-        std::map<std::string, Building *> _buildings;
 };
 
 #endif /* !POPUP_HPP_ */

@@ -12,6 +12,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include <map>
+#include <SFML/Audio.hpp>
 #include "Utile.hpp"
 #include "../Player/Player.hpp"
 #include "../Building/Building.hpp"
@@ -27,6 +28,7 @@ class Player;
 class Building;
 class Popup;
 class Icon;
+class Sound;
 
 class Game {
 	public:
@@ -59,6 +61,9 @@ class Game {
 
 		Icon icon_wood;
 		Icon icon_stone;
+
+		Icon icon_click_stone;
+		Icon icon_click_wood;
 
 		Popup *popup;
 	protected:

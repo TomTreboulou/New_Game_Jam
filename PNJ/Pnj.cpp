@@ -6,17 +6,20 @@
 */
 
 #include "Pnj.hpp"
+#include "../Game/Game.hpp"
 #include <iostream>
 
 Pnj::Pnj(Building &build, bool type, sf::IntRect box)
 {
     this->_map_idx = 0;
     this->_clock = sf::Clock();
+    this->_clock_rect = sf::Clock();
     this->_target = &build;
 
+    this->_index_rect = 0;
     this->_texture = new sf::Texture();
     this->_box = box;
-    this->_texture->loadFromFile("assets/Sprite.png");
+    this->_texture->loadFromFile("assets/Sprite_" + std::to_string(rand() % 3) + ".png");
     this->_spt.setTexture(*this->_texture, false);
     this->_spt.setTextureRect(this->_box);
 
@@ -56,48 +59,71 @@ Pnj::_setMove(void)
     for (std::size_t idx = 1; idx < this->_map.size(); ++idx) {
         if ( this->_map[idx].x != this->_map[idx - 1].x ) {
             if ( this->_map[idx].x > this->_map[idx - 1].x ) {
-                this->_movement.push_back(sf::Vector2f(8, 0));
+                this->_movement.push_back(sf::Vector2f(3, 0));
             } else {
-                this->_movement.push_back(sf::Vector2f(-8, 0));
+                this->_movement.push_back(sf::Vector2f(-3, 0));
             }
         } else {
             if ( this->_map[idx].y > this->_map[idx - 1].y ) {
-                this->_movement.push_back(sf::Vector2f(0, 8));
+                this->_movement.push_back(sf::Vector2f(0, 3));
             } else {
-                this->_movement.push_back(sf::Vector2f(0, -8));
+                this->_movement.push_back(sf::Vector2f(0, -3));
             }
         }
     }
 }
 
+
+void Pnj::update_x(float x) {
+	this->_pos.x += x;
+	this->_spt.setPosition(this->_pos);
+	if (x > 0)
+        this->_box.left = (this->_index_rect + 4) * 79;
+    else
+        this->_box.left = (this->_index_rect + 12) * 79;
+    if (!x || this->_clock_rect.getElapsedTime().asSeconds() < 0.16)
+        return;
+    this->_clock_rect.restart();
+    this->_spt.setTextureRect(this->_box);
+    this->_index_rect = (this->_index_rect >= 3) ? 0 : this->_index_rect + 1;
+}
+void Pnj::update_y(float y) {
+	this->_pos.y += y;
+	this->_spt.setPosition(this->_pos);
+    if (!y || this->_clock_rect.getElapsedTime().asSeconds() < 0.16)
+        return;
+    this->_clock_rect.restart();
+    if (y > 0)
+        this->_box.left = (this->_index_rect) * 79;
+    else
+        this->_box.left = (this->_index_rect + 8) * 79;
+    this->_spt.setTextureRect(this->_box);
+    this->_index_rect = (this->_index_rect >= 3) ? 0 : this->_index_rect + 1;
+}
+
 void
 Pnj::_setPos(void)
 {
-    this->_pos.x += this->_movement[this->_map_idx].x;
-    this->_pos.y += this->_movement[this->_map_idx].y;
-    /*
-        if (_animClock.getElapsedTime().asSecond() > 0.5) {
-            // make anim;
-            _animClock.restart();
-        }
-    */
+    this->update_x(this->_movement[this->_map_idx].x);
+    this->update_y(this->_movement[this->_map_idx].y);
 }
 
 void
 Pnj::_targetReached()
 {
+    player.sound->piece->sound.play();
     player.setMoney(this->_target->getValue());
 }
 
 bool
 Pnj::movePnj(void)
 {
-    if (_clock.getElapsedTime().asSeconds() > 0.16) {
+    if (_clock.getElapsedTime().asSeconds() > 0.08) {
         _setPos();
-        if ((_pos.x + _box.width / 2) >= _map[_map_idx + 1].x - 8 && \
-            (_pos.x + _box.width / 2) <= _map[_map_idx + 1].x + 8 && \
-            (_pos.y + _box.height / 1.2) >= _map[_map_idx + 1].y - 8 && \
-            (_pos.y + _box.height / 1.2) <= _map[_map_idx + 1].y + 8)
+        if ((_pos.x + _box.width / 2) >= _map[_map_idx + 1].x - 3 && \
+            (_pos.x + _box.width / 2) <= _map[_map_idx + 1].x + 3 && \
+            (_pos.y + _box.height / 1.2) >= _map[_map_idx + 1].y - 3 && \
+            (_pos.y + _box.height / 1.2) <= _map[_map_idx + 1].y + 3)
         {
             ++_map_idx;
             if (_map_idx >= _map.size() - 1) {

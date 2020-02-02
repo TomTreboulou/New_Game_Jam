@@ -21,8 +21,9 @@ class Building {
 		Building(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl);
 		virtual ~Building();
                 virtual bool isValid() const;
-                virtual void Update(int &money, int &wood, int &stone, int &iron);
+                virtual void Update();
                 virtual int               getLevel() const;
+                void                      generate();
                 virtual sf::Vector2f      getPos() const;
                 virtual std::vector<int>  getCost() const;
                 virtual std::string       getName() const;
@@ -36,6 +37,7 @@ class Building {
                 std::string     _name;
                 bool            _valid;
                 int             _level;
+                sf::Clock       _clock;
 
                 float           _value;
                 float           _moneyFactor;
@@ -64,7 +66,6 @@ class Spawner : public Building {
                 bool                    _type;
                 std::vector<Pnj>        _pnjs;
                 double                  _delay;
-                sf::Clock               _clock;
 
 };
 

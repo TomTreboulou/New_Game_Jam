@@ -6,6 +6,7 @@
 */
 
 #include "Player.hpp"
+#include <iostream>
 
 std::string Player::getName()
 {
@@ -77,6 +78,7 @@ Player::Player()
     this->wood = new Ressource("assets/wood.png", (sf::Vector2f){350, 0}, (sf::Vector2f){500, 42});
     this->stone = new Ressource("assets/stone.png", (sf::Vector2f){700, 0}, (sf::Vector2f){850, 42});
     this->iron = new Ressource("assets/iron.png", (sf::Vector2f){1050, 0}, (sf::Vector2f){1200, 42});
+    this->sound = new Sound();
     this->money->text.setString(std::to_string(this->_money));
     this->wood->text.setString(std::to_string(this->_wood));
     this->stone->text.setString(std::to_string(this->_stone));

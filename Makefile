@@ -7,7 +7,7 @@
 
 CC = g++
 
-SRCS = $(wildcard *.cpp Game/*.cpp Player/*.cpp Building/*.cpp Config/*.cpp PNJ/*.cpp Pop-up/*.cpp)
+SRCS = $(wildcard *.cpp Game/*.cpp Player/*.cpp Building/*.cpp Config/*.cpp PNJ/*.cpp Pop-up/*.cpp Sound/*.cpp)
 
 OBJS = $(SRCS:.cpp=.o)
 
