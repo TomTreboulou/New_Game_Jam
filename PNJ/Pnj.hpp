@@ -23,10 +23,19 @@ class Pnj {
 
                 bool    movePnj(void);
 
+                // setter
+                void         setSpritePos(sf::Vector2f &mov)
+                {
+                        this->_spt.setPosition({this->_pos.x + mov.x, this->_pos.y + mov.y});
+                };
                 // Getter
                 std::size_t  getIdx(void)    const {return _map_idx;};
-                sf::Vector2i getPos(void)    const {return _pos;};
-                sf::Sprite   getSprite(void) const {return _spt;};
+                sf::Vector2f getPos(void)    const {return _pos;};
+                void         draw(sf::RenderWindow *window, sf::Vector2f &mov)
+                {
+                        setSpritePos(mov);
+                        window->draw(this->_spt);
+                };
 
 	protected:
 	private:
@@ -34,9 +43,9 @@ class Pnj {
                 void    _targetReached(void);
                 void    _setPos(void);
 
-                std::vector<sf::Vector2i> _map;       // etape a atteindre
-                std::vector<sf::Vector2i> _movement;
-                sf::Vector2i    _pos;       // position du pnj
+                std::vector<sf::Vector2f> _map;       // etape a atteindre
+                std::vector<sf::Vector2f> _movement;
+                sf::Vector2f    _pos;       // position du pnj
                 std::size_t     _map_idx;   // index de l'etape en cour
                 Building        *_target;   // building a atteindre
                 sf::Texture     _texture;

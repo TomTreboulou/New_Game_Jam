@@ -18,8 +18,10 @@ Building::Building(int x, int y, std::string name, float MoneyFactor, float Wood
     this->_stoneFactor = StoneFactor;
     this->_ironFactor = IronFactor;
     this->_level = lvl;
-    this->tex.loadFromFile(std::string("./assets/" + this->_name + ".png").c_str());
-    this->tex.loadFromFile("./assets/" + name + ".png");
+    if (this->_level == 0)
+        this->tex.loadFromFile("./assets/ruine.png");
+    else
+        this->tex.loadFromFile("./assets/" + name + ".png");
     this->spr.setTexture(this->tex, false);
     this->spr.setPosition(this->_pos);
 }
@@ -52,20 +54,22 @@ std::vector<int> Building::getCost() const
 {
     std::vector<int> cost;
 
-    cost.push_back((this->_moneyFactor * this->_level));
-    cost.push_back((this->_woodFactor * this->_level));
-    cost.push_back((this->_stoneFactor * this->_level));
-    cost.push_back((this->_ironFactor * this->_level));
+    cost.push_back((this->_moneyFactor * (this->_level + 1)));
+    cost.push_back((this->_woodFactor * (this->_level + 1)));
+    cost.push_back((this->_stoneFactor * (this->_level + 1)));
+    cost.push_back((this->_ironFactor * (this->_level + 1)));
     return (cost);
 }
 
 void Building::Update(int &money, int &wood, int &stone, int &iron)
 {
-    if ((money >= (this->_moneyFactor * this->_level)) && (wood >= (this->_woodFactor * this->_level)) && (stone >= (this->_stoneFactor * this->_level)) && (iron >= (this->_ironFactor * this->_level))) {
-        money -= (this->_moneyFactor * this->_level);
-        wood -= (this->_woodFactor * this->_level);
-        stone -= (this->_stoneFactor * this->_level);
-        iron -= (this->_ironFactor * this->_level);
+    if ((money >= (this->_moneyFactor * (this->_level + 1))) && (wood >= (this->_woodFactor * (this->_level + 1))) && (stone >= (this->_stoneFactor * (this->_level + 1))) && (iron >= (this->_ironFactor * (this->_level + 1)))) {
+        if (!this->_level)
+            this->tex.loadFromFile("./assets/" + this->_name + ".png");
+        money -= (this->_moneyFactor * (this->_level + 1));
+        wood -= (this->_woodFactor * (this->_level + 1));
+        stone -= (this->_stoneFactor * (this->_level + 1));
+        iron -= (this->_ironFactor * (this->_level + 1));
         this->_valid = true;
         this->_level += 1;
     } else {

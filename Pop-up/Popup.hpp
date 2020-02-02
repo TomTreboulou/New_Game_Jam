@@ -34,10 +34,10 @@ class Popup {
 	public:
 		Popup(std::map<std::string, Building *> &buildings);
 		~Popup();
+        void DrawAll(sf::RenderWindow *window);
         Line *Market;
-        Line *Lumbermil;
+        Line *LumberMill;
         Line *Quarry;
-        Line *Forge;
         Line *Restaurant;
         Line *Hotel;
         sf::Texture tex;

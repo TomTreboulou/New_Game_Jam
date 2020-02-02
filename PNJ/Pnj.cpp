@@ -6,16 +6,16 @@
 */
 
 #include "Pnj.hpp"
+#include <iostream>
 
 Pnj::Pnj(Building &build, bool type)
 {
-    this->_map_idx = 1;
+    this->_map_idx = 0;
     this->_clock = sf::Clock();
     this->_target = &build;
 
-    this->_texture.loadFromFile("../assets/pnj.png");
+    this->_texture.loadFromFile("assets/icon_wood.png");
     this->_spt.setTexture(this->_texture, false);
-
 
     if (!build.getName().compare("Market")) {
         if (type) {
@@ -26,12 +26,12 @@ Pnj::Pnj(Building &build, bool type)
     }
     else if (!build.getName().compare("Restaurant")) {
         if (type) {
-            this->_map = {{1765,1440}, {1475,1440}, {1475, 2060}, {1215, 2016}, {1215, 1870}};
+            this->_map = {{1765,1440}, {1475,1440}, {1475, 2060}, {1215, 2060}, {1215, 1870}};
         } else {
-            this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 2060}, {1215, 2016}, {1215, 1870}};
+            this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 2060}, {1215, 2060}, {1215, 1870}};
         }
     }
-    else if (!build.getName().compare("Hostel")) {
+    else if (!build.getName().compare("Hotel")) {
         if (type) {
             this->_map = {{1765,1440}, {1990, 1440}, {1990, 2025}, {1705, 2025}, {1705, 1915}};
         } else {
@@ -53,15 +53,15 @@ Pnj::_setMove(void)
     for (std::size_t idx = 1; idx < this->_map.size(); ++idx) {
         if ( this->_map[idx].x != this->_map[idx - 1].x ) {
             if ( this->_map[idx].x > this->_map[idx - 1].x ) {
-                this->_movement.push_back(sf::Vector2i(6, 0));
+                this->_movement.push_back(sf::Vector2f(8, 0));
             } else {
-                this->_movement.push_back(sf::Vector2i(-6, 0));
+                this->_movement.push_back(sf::Vector2f(-8, 0));
             }
         } else {
             if ( this->_map[idx].y > this->_map[idx - 1].y ) {
-                this->_movement.push_back(sf::Vector2i(0, 6));
+                this->_movement.push_back(sf::Vector2f(0, 8));
             } else {
-                this->_movement.push_back(sf::Vector2i(0, -6));
+                this->_movement.push_back(sf::Vector2f(0, -8));
             }
         }
     }
@@ -70,7 +70,9 @@ Pnj::_setMove(void)
 void
 Pnj::_targetReached(void)
 {
-    // get ressource;
+    //
+    //this->_target
+    std::cout << "lol" << std::endl;
 }
 
 void
@@ -89,59 +91,19 @@ Pnj::_setPos(void)
 bool
 Pnj::movePnj(void)
 {
-    if (_clock.getElapsedTime().asSeconds() > /*0.34*/0.8) {
-
-        if (_movement[_map_idx].x) {
-            if (_movement[_map_idx].x > 0) {
-                if (_map[_map_idx + 1].x >= _pos.x) {
-                    ++_map_idx;
-                    if (_map_idx >= _map.size()) {
-                        _targetReached();
-                        return true;
-                    }
-                    _pos = _map[_map_idx];
-                }
-                _setPos();
-
-            } else {
-
-                if (_map[_map_idx + 1].x <= _pos.x) {
-                    ++_map_idx;
-                    if (_map_idx >= _map.size()) {
-                        _targetReached();
-                        return true;
-                    }
-                    _pos = _map[_map_idx];
-                }
-                _setPos();
-
+    if (_clock.getElapsedTime().asSeconds() > 0.16) {
+        _setPos();
+        if (_pos.x >= _map[_map_idx + 1].x - 8 && \
+            _pos.x <= _map[_map_idx + 1].x + 8 && \
+            _pos.y >= _map[_map_idx + 1].y - 8 && \
+            _pos.y <= _map[_map_idx + 1].y + 8)
+        {
+            ++_map_idx;
+            if (_map_idx >= _map.size() - 1) {
+                _targetReached();
+                return true;
             }
-        } else {
-
-            if (_movement[_map_idx].y > 0) {
-                if (_map[_map_idx + 1].y >= _pos.y) {
-                    ++_map_idx;
-                    if (_map_idx >= _map.size()) {
-                        _targetReached();
-                        return true;
-                    }
-                    _pos = _map[_map_idx];
-                }
-                _setPos();
-
-            } else {
-
-                if (_map[_map_idx + 1].y <= _pos.y) {
-                    ++_map_idx;
-                    if (_map_idx >= _map.size()) {
-                        _targetReached();
-                        return true;
-                    }
-                    _pos = _map[_map_idx];
-                }
-                _setPos();
-
-            }
+            _pos = _map[_map_idx];
         }
         _clock.restart();
     }
