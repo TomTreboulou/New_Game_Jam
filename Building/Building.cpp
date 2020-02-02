@@ -18,6 +18,7 @@ Building::Building(int x, int y, std::string name, float MoneyFactor, float Wood
     this->_stoneFactor = StoneFactor;
     this->_ironFactor = IronFactor;
     this->_level = lvl;
+    this->_value = 0;
     if (this->_level == 0)
         this->tex.loadFromFile("./assets/ruine.png");
     else
@@ -50,6 +51,11 @@ std::string Building::getName() const
     return this->_name;
 }
 
+int Building::getValue() const
+{
+    return this->_value;
+}
+
 std::vector<int> Building::getCost() const
 {
     std::vector<int> cost;
@@ -72,6 +78,7 @@ void Building::Update(int &money, int &wood, int &stone, int &iron)
         iron -= (this->_ironFactor * (this->_level + 1));
         this->_valid = true;
         this->_level += 1;
+        this->_value = (this->_moneyFactor / 50);
     } else {
 
     }

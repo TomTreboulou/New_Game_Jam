@@ -40,7 +40,7 @@ Spawner::generatePnj(Building *build)
     if (this->_pnjs.size() < build->getLevel() * 5 && \
         this->_clock.getElapsedTime().asSeconds() >= this->_delay)
     {
-        this->_pnjs.push_back( Pnj(*build, this->_type) );
+        this->_pnjs.push_back( Pnj(*build, this->_type, (sf::IntRect){0, 0, 80, 131}) );
         this->_clock.restart();
         return (true);
     }

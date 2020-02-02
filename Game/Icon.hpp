@@ -64,6 +64,8 @@ class Icon {
 		};
 		void draw(sf::RenderWindow *window) {
 			for (auto it = this->_icon.begin() ; it != this->_icon.end(); it++) {
+				(*it)->tex.loadFromFile("assets/icon_wood.png");
+				(*it)->spr.setTexture((*it)->tex);
 				window->draw((*it)->spr);
 			}
 		};

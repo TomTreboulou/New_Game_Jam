@@ -28,9 +28,7 @@ void draw(Game *game)
 	//  }
     for (auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
         if (it->first.compare("Spawner") > 0) {
-std::cerr << "before call\n";
-            (static_cast<Spawner *> (it->second))->managePnjs(game->window, game->buildings);
-std::cerr << "after call\n";
+            (static_cast<Spawner *> (it->second))->managePnjs(game->window, game->buildings, game->movement);
         }
     }
     // game->icon_wood.draw(game->window);
@@ -98,12 +96,17 @@ void the_game(Game *game)
 
 void menu(Game *game)
 {
+    sf::Vector2i actual = sf::Mouse::getPosition();
+
+    game->spr_mouse.setPosition((sf::Vector2f){(float)actual.x, (float)actual.y});
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         while (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape));
         game->status = 0;
     }
-    //game->window->clear();
+    game->window->clear();
     game->window->draw(game->popup->spr);
+    game->popup->DrawAll(game->window);
+    game->window->draw(game->spr_mouse);
     game->window->display();
 }
 

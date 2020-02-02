@@ -9,6 +9,7 @@
 #define PNJ_HPP_
 
 #include "../Building/Building.hpp"
+#include "../Game/Game.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
@@ -18,7 +19,7 @@ class Building;
 
 class Pnj {
 	public:
-                Pnj(Building &build, bool type);
+                Pnj(Building &build, bool type, sf::IntRect box);
 		~Pnj();
 
                 bool    movePnj(void);
@@ -48,7 +49,8 @@ class Pnj {
                 sf::Vector2f    _pos;       // position du pnj
                 std::size_t     _map_idx;   // index de l'etape en cour
                 Building        *_target;   // building a atteindre
-                sf::Texture     _texture;
+                sf::Texture     *_texture;
+                sf::IntRect     _box;
                 sf::Sprite      _spt;
                 sf::Clock       _clock;
 };

@@ -26,6 +26,7 @@ class Building {
                 virtual sf::Vector2f      getPos() const;
                 virtual std::vector<int>  getCost() const;
                 virtual std::string       getName() const;
+                virtual int               getValue() const;
 
                 sf::Texture       tex;
 		sf::Sprite        spr;
@@ -36,6 +37,7 @@ class Building {
                 bool            _valid;
                 int             _level;
 
+                float           _value;
                 float           _moneyFactor;
                 float           _woodFactor;
                 float           _stoneFactor;

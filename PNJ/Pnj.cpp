@@ -8,14 +8,17 @@
 #include "Pnj.hpp"
 #include <iostream>
 
-Pnj::Pnj(Building &build, bool type)
+Pnj::Pnj(Building &build, bool type, sf::IntRect box)
 {
     this->_map_idx = 0;
     this->_clock = sf::Clock();
     this->_target = &build;
 
-    this->_texture.loadFromFile("assets/icon_wood.png");
-    this->_spt.setTexture(this->_texture, false);
+    this->_texture = new sf::Texture();
+    this->_box = box;
+    this->_texture->loadFromFile("assets/Sprite.png");
+    this->_spt.setTexture(*this->_texture, false);
+    this->_spt.setTextureRect(this->_box);
 
     if (!build.getName().compare("Market")) {
         if (type) {
@@ -38,13 +41,13 @@ Pnj::Pnj(Building &build, bool type)
             this->_map = {{1115, 1475}, {1115, 1540}, {1475, 1540}, {1475, 2025}, {1705, 2025}, {1705, 1915}};
         }
     }
-    this->_pos = this->_map[0];
+    this->_pos.x = this->_map[0].x - this->_box.width / 2;
+    this->_pos.y = this->_map[0].y - this->_box.height / 1.2;
     this->_setMove();
 }
 
 Pnj::~Pnj()
 {
-
 }
 
 void
@@ -68,14 +71,6 @@ Pnj::_setMove(void)
 }
 
 void
-Pnj::_targetReached(void)
-{
-    //
-    //this->_target
-    std::cout << "lol" << std::endl;
-}
-
-void
 Pnj::_setPos(void)
 {
     this->_pos.x += this->_movement[this->_map_idx].x;
@@ -88,22 +83,29 @@ Pnj::_setPos(void)
     */
 }
 
+void
+Pnj::_targetReached()
+{
+    player.setMoney(this->_target->getValue());
+}
+
 bool
 Pnj::movePnj(void)
 {
     if (_clock.getElapsedTime().asSeconds() > 0.16) {
         _setPos();
-        if (_pos.x >= _map[_map_idx + 1].x - 8 && \
-            _pos.x <= _map[_map_idx + 1].x + 8 && \
-            _pos.y >= _map[_map_idx + 1].y - 8 && \
-            _pos.y <= _map[_map_idx + 1].y + 8)
+        if ((_pos.x + _box.width / 2) >= _map[_map_idx + 1].x - 8 && \
+            (_pos.x + _box.width / 2) <= _map[_map_idx + 1].x + 8 && \
+            (_pos.y + _box.height / 1.2) >= _map[_map_idx + 1].y - 8 && \
+            (_pos.y + _box.height / 1.2) <= _map[_map_idx + 1].y + 8)
         {
             ++_map_idx;
             if (_map_idx >= _map.size() - 1) {
                 _targetReached();
                 return true;
             }
-            _pos = _map[_map_idx];
+            _pos.x = _map[_map_idx].x - this->_box.width / 2;
+            _pos.y = _map[_map_idx].y - this->_box.height / 1.2;
         }
         _clock.restart();
     }
