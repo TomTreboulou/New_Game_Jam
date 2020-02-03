@@ -70,7 +70,7 @@ Popup::Popup(std::map<std::string, Building *> &buildings)
     this->Hotel = new Line("assets/Signatra.ttf", {500, 470}, this->_buildings["Hotel"]->getCost());
     this->LumberMill = new Line("assets/Signatra.ttf", {500, 620}, this->_buildings["LumberMill"]->getCost());
     this->Quarry = new Line("assets/Signatra.ttf", {500, 770}, this->_buildings["Quarry"]->getCost());
-    this->Forge = new Line("assets/Signatra.ttf", {500, 930}, this->_buildings["Forge"]->getCost());
+    this->Forge = new Line("assets/Signatra.ttf", {500, 910}, this->_buildings["Forge"]->getCost());
     this->tex.loadFromFile("assets/Popup.png");
     this->spr.setTexture(this->tex, false);
 }

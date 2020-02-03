@@ -19,11 +19,12 @@
 class Icon {
 	public:
 		Icon() {};
-		Icon(int i, sf::Vector2f pos1, sf::Vector2f pos2, const std::string &file, bool update) {
+		Icon(int i, sf::Vector2f pos1, sf::Vector2f pos2, const std::string &file, bool update, bool up) {
             this->_pos1 = pos1;
             this->_pos2 = pos2;
 			this->_file = file;
 			this->_update = update;
+			this->_up = up;
 			for (int j = 0; j < i; j++)
 				this->add();
 		};
@@ -58,7 +59,10 @@ class Icon {
 		void update() {
 			for (auto it = this->_icon.begin() ; it < this->_icon.end(); it++) {
 				(*it)->color--;
-				(*it)->pos.y += rand() % 2 ? 1 : 0;
+				if (!this->_up)
+					(*it)->pos.y += rand() % 2 ? 1 : 0;
+				else
+					(*it)->pos.y -= rand() % 2 ? 1 : 0;
 				if ((*it)->color <= 0) {
 					delete (*it);
 					this->_icon.erase(it);
@@ -81,6 +85,7 @@ class Icon {
 		sf::Vector2f _pos1;
 		sf::Vector2f _pos2;
 		bool _update;
+		bool _up;
 };
 
 #endif /* !ICON_HPP_ */

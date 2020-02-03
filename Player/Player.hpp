@@ -13,8 +13,11 @@
 #include <vector>
 #include <map>
 #include "../Sound/Sound.hpp"
+#include "../Game/Game.hpp"
 
+class Game;
 class Sound;
+
 class Ressource {
 	public:
 		Ressource(std::string str, sf::Vector2f pos, sf::Vector2f);
@@ -47,6 +50,7 @@ class Player {
 		sf::Font font;
     	sf::Text text;
 		int click;
+		Game *env;
 
 	protected:
 	private:

@@ -35,15 +35,15 @@ void draw(Game *game)
     for (auto it = game->icon_click_stone._icon.begin() ; it != game->icon_click_stone._icon.end(); it++) {
 	 	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
 	}
-    for (auto it = game->icon_click_money._icon.begin() ; it != game->icon_click_money._icon.end(); it++) {
-	 	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
-	}
     for (auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
         if (it->first.compare("Spawner") > 0) {
             (static_cast<Spawner *> (it->second))->managePnjs(game->window, game->buildings, game->movement);
         } else {
             it->second->generate();
         }
+    }
+    for (auto it = game->icon_click_money._icon.begin() ; it != game->icon_click_money._icon.end(); it++) {
+        (*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
     }
     game->icon_wood.draw(game->window);
     game->icon_stone.draw(game->window);

@@ -128,6 +128,9 @@ Pnj::movePnj(void)
             ++_map_idx;
             if (_map_idx >= _map.size() - 1) {
                 _targetReached();
+                player.env->icon_click_money.set_pos((sf::Vector2f){(float)(_map[_map_idx].x - 30), (float)(_map[_map_idx].y - 150)}, (sf::Vector2f){(float)(_map[_map_idx].x + 2), (float)(_map[_map_idx].y - 100)});
+                for (int i = 0; i < this->_target->getLevel() && i < 10; i++)
+                    player.env->icon_click_money.add();
                 return true;
             }
             _pos.x = _map[_map_idx].x - this->_box.width / 2;
