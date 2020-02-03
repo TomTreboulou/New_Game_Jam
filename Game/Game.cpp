@@ -16,6 +16,8 @@ Game::Game(std::string file)
     this->status = 0;
     this->move = false;
     this->click = false;
+    if (access(file.c_str(), F_OK) == -1)
+        exit(84);
 	parser.load_file(file);
 	for (Parser_Tree *node = parser.getChild("building"); node; node = node->getNextChild()) {
         if (node->getAttribut("id") != "") {
