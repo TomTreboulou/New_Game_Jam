@@ -136,24 +136,24 @@ void achat(Game *game)
         game->status = 0;
     } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         while(sf::Mouse::isButtonPressed(sf::Mouse::Left));
-        if (actual.x >= game->popup->Market->box_pos.x && actual.x <= game->popup->Market->box_pos.x + 260 && actual.y >= game->popup->Market->box_pos.y && actual.y <= game->popup->Market->box_pos.y + 75) {
+        if (actual.x >= game->popup->Market->box_pos.x && actual.x <= game->popup->Market->box_pos.x + 170 && actual.y >= game->popup->Market->box_pos.y && actual.y <= game->popup->Market->box_pos.y + 75) {
             game->popup->_buildings["Market"]->Update();
-            game->popup->Market->updateCost(game->popup->_buildings["Market"]->getCost());
-        } else if (actual.x >= game->popup->LumberMill->box_pos.x && actual.x <= game->popup->LumberMill->box_pos.x + 260 && actual.y >= game->popup->LumberMill->box_pos.y && actual.y <= game->popup->LumberMill->box_pos.y + 75) {
+            game->popup->Market->updateCost(game->popup->_buildings["Market"]->getCost(), game->popup->_buildings["Market"]->getLevel());
+        } else if (actual.x >= game->popup->LumberMill->box_pos.x && actual.x <= game->popup->LumberMill->box_pos.x + 75 && actual.y >= game->popup->LumberMill->box_pos.y && actual.y <= game->popup->LumberMill->box_pos.y + 75) {
             game->popup->_buildings["LumberMill"]->Update();
-            game->popup->LumberMill->updateCost(game->popup->_buildings["LumberMill"]->getCost());
-        } else if (actual.x >= game->popup->Quarry->box_pos.x && actual.x <= game->popup->Quarry->box_pos.x + 260 && actual.y >= game->popup->Quarry->box_pos.y && actual.y <= game->popup->Quarry->box_pos.y + 75) {
+            game->popup->LumberMill->updateCost(game->popup->_buildings["LumberMill"]->getCost(), game->popup->_buildings["LumberMill"]->getLevel());
+        } else if (actual.x >= game->popup->Quarry->box_pos.x && actual.x <= game->popup->Quarry->box_pos.x + 75 && actual.y >= game->popup->Quarry->box_pos.y && actual.y <= game->popup->Quarry->box_pos.y + 75) {
             game->popup->_buildings["Quarry"]->Update();
-            game->popup->Quarry->updateCost(game->popup->_buildings["Quarry"]->getCost());
-        } else if (actual.x >= game->popup->Hotel->box_pos.x && actual.x <= game->popup->Hotel->box_pos.x + 260 && actual.y >= game->popup->Hotel->box_pos.y && actual.y <= game->popup->Hotel->box_pos.y + 75) {
+            game->popup->Quarry->updateCost(game->popup->_buildings["Quarry"]->getCost(), game->popup->_buildings["Quarry"]->getLevel());
+        } else if (actual.x >= game->popup->Hotel->box_pos.x && actual.x <= game->popup->Hotel->box_pos.x + 75 && actual.y >= game->popup->Hotel->box_pos.y && actual.y <= game->popup->Hotel->box_pos.y + 75) {
             game->popup->_buildings["Hotel"]->Update();
-            game->popup->Hotel->updateCost(game->popup->_buildings["Hotel"]->getCost());
-        } else if (actual.x >= game->popup->Restaurant->box_pos.x && actual.x <= game->popup->Restaurant->box_pos.x + 260 && actual.y >= game->popup->Restaurant->box_pos.y && actual.y <= game->popup->Restaurant->box_pos.y + 75) {
+            game->popup->Hotel->updateCost(game->popup->_buildings["Hotel"]->getCost(), game->popup->_buildings["Hotel"]->getLevel());
+        } else if (actual.x >= game->popup->Restaurant->box_pos.x && actual.x <= game->popup->Restaurant->box_pos.x + 75 && actual.y >= game->popup->Restaurant->box_pos.y && actual.y <= game->popup->Restaurant->box_pos.y + 75) {
             game->popup->_buildings["Restaurant"]->Update();
-            game->popup->Restaurant->updateCost(game->popup->_buildings["Restaurant"]->getCost());
-        } else if (actual.x >= game->popup->Forge->box_pos.x && actual.x <= game->popup->Forge->box_pos.x + 260 && actual.y >= game->popup->Forge->box_pos.y && actual.y <= game->popup->Forge->box_pos.y + 75) {
+            game->popup->Restaurant->updateCost(game->popup->_buildings["Restaurant"]->getCost(), game->popup->_buildings["Restaurant"]->getLevel());
+        } else if (actual.x >= game->popup->Forge->box_pos.x && actual.x <= game->popup->Forge->box_pos.x + 75 && actual.y >= game->popup->Forge->box_pos.y && actual.y <= game->popup->Forge->box_pos.y + 75) {
             game->popup->_buildings["Forge"]->Update();
-            game->popup->Forge->updateCost(game->popup->_buildings["Forge"]->getCost());
+            game->popup->Forge->updateCost(game->popup->_buildings["Forge"]->getCost(), game->popup->_buildings["Forge"]->getLevel());
         } else {
 
         }

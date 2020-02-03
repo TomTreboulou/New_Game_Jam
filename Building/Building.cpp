@@ -61,7 +61,7 @@ void Building::generate()
 {
     if (this->isValid() && _clock.getElapsedTime().asSeconds() > 2) {
         if (this->getName() == "Forge") {
-            player.setIron(1 * this->_level);
+            player.setIron(2 * this->_level);
         } else if (this->getName() == "LumberMill") {
             player.setWood(3 * this->_level);
         } else if (this->getName() == "Quarry") {
@@ -78,13 +78,22 @@ std::vector<int> Building::getCost() const
     cost.push_back((this->_moneyFactor * (this->_level + 1)));
     cost.push_back((this->_woodFactor * (this->_level + 1)));
     cost.push_back((this->_stoneFactor * (this->_level + 1)));
-    cost.push_back((this->_ironFactor * (this->_level + 1)));
+    if (this->_level >= 5) {
+        cost.push_back((this->_ironFactor * (this->_level - 4)));
+    } else if (this->_level >= 1 && this->getName() == "Forge") {
+        cost.push_back((this->_ironFactor * (this->_level)));
+    } else {
+        cost.push_back(0);
+    }
     return (cost);
 }
 
 void Building::Update()
 {
-    if ((player.getMoney() >= (this->_moneyFactor * (this->_level + 1))) && (player.getWood() >= (this->_woodFactor * (this->_level + 1))) && (player.getStone() >= (this->_stoneFactor * (this->_level + 1))) && (player.getIron() >= (this->_ironFactor * (this->_level + 1)))) {
+    if ((player.getMoney() >= (this->_moneyFactor * (this->_level + 1))) && (player.getWood() >= (this->_woodFactor * (this->_level + 1))) && (player.getStone() >= (this->_stoneFactor * (this->_level + 1))) && (this->getLevel() < 5 || player.getIron() >= (this->_ironFactor * (this->_level - 4)))) {
+        if (this->_level >= 1 && this->_level <= 5 && this->getName() == "Forge" && player.getIron() < (this->_ironFactor * (this->_level))) {
+            return;
+        }
         if (!this->_level) {
             player.sound->create->sound.play();
             this->tex.loadFromFile("./assets/" + this->_name + ".png");
@@ -95,7 +104,11 @@ void Building::Update()
         player.setMoney(-1 * (this->_moneyFactor * (this->_level + 1)));
         player.setWood(-1 * (this->_woodFactor * (this->_level + 1)));
         player.setStone(-1 * (this->_stoneFactor * (this->_level + 1)));
-        player.setIron(-1 * (this->_ironFactor * (this->_level + 1)));
+        if (this->_level >= 5) {
+            player.setIron(-1 * (this->_ironFactor * (this->_level - 4)));
+        } else if (this->getName() == "Forge") {
+            player.setIron(-1 * (this->_ironFactor * (this->_level)));
+        }
         this->_valid = true;
         this->_level += 1;
         this->_value = ((this->_moneyFactor * (this->_level + 1) / 30));
