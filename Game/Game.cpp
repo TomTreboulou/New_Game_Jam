@@ -69,6 +69,8 @@ void Game::load(const std::string &file)
 {
     Parser::Parser_XML parser;
 
+    if (access(file.c_str(), F_OK) == -1)
+        return;
     this->buildings.clear();
     parser.load_file(file);
     for (Parser_Tree *node = parser.getChild("building"); node; node = node->getNextChild()) {

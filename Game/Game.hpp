@@ -24,6 +24,8 @@
 #include "../Menu/Menu.hpp"
 #include <fstream>
 #include <iostream>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #define GAME_NAME "Idle World"
 

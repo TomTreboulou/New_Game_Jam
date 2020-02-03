@@ -31,7 +31,7 @@ Spawner::DestinationWrapper(std::map<std::string, Building *> &buildings, bool g
 Spawner::Spawner(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl, int type) : Building(x, y, std::string("Spawner"), MoneyFactor, WoodFactor, StoneFactor, IronFactor, lvl)
 {
     this->_type = type;
-    this->_delay = 5;
+    this->_delay = (5 + this->_level) / this->_level;
 }
 
 bool
