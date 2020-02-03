@@ -31,13 +31,13 @@ Spawner::DestinationWrapper(std::map<std::string, Building *> &buildings, bool g
 Spawner::Spawner(int x, int y, std::string name, float MoneyFactor, float WoodFactor, float StoneFactor, float IronFactor, int lvl, int type) : Building(x, y, std::string("Spawner"), MoneyFactor, WoodFactor, StoneFactor, IronFactor, lvl)
 {
     this->_type = type;
-    this->_delay = 15;
+    this->_delay = 5;
 }
 
 bool
 Spawner::generatePnj(Building *build)
 {
-    if (this->_pnjs.size() < build->getLevel() * 5 && \
+    if (this->_pnjs.size() < build->getLevel() * 40 && \
         this->_clock.getElapsedTime().asSeconds() >= this->_delay)
     {
         this->_pnjs.push_back( Pnj(*build, this->_type, (sf::IntRect){0, 0, 80, 131}) );
@@ -71,7 +71,7 @@ Spawner::Update(int &money, int &wood, int &stone, int &iron)
         iron -= (this->_ironFactor * this->_level);
         this->_valid = true;
         this->_level += 1;
-        this->_delay = 15 / this->_level;
+        this->_delay = (5 + this->_level) / this->_level;
     } else {
 
     }

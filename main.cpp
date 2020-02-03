@@ -16,6 +16,7 @@ void draw(Game *game)
     game->icon_stone.update();
     game->icon_click_wood.update();
     game->icon_click_stone.update();
+    game->icon_click_money.update();
     game->spr_mouse.setPosition((sf::Vector2f){(float)actual.x, (float)actual.y});
     game->window->draw(game->background);
     for(auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
@@ -34,6 +35,9 @@ void draw(Game *game)
     for (auto it = game->icon_click_stone._icon.begin() ; it != game->icon_click_stone._icon.end(); it++) {
 	 	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
 	}
+    for (auto it = game->icon_click_money._icon.begin() ; it != game->icon_click_money._icon.end(); it++) {
+	 	(*it)->spr.setPosition((sf::Vector2f){game->movement.x + (*it)->pos.x, game->movement.y + (*it)->pos.y});
+	}
     for (auto it = game->buildings.begin(); it != game->buildings.end(); it++) {
         if (it->first.compare("Spawner") > 0) {
             (static_cast<Spawner *> (it->second))->managePnjs(game->window, game->buildings, game->movement);
@@ -45,6 +49,7 @@ void draw(Game *game)
     game->icon_stone.draw(game->window);
     game->icon_click_wood.draw(game->window);
     game->icon_click_stone.draw(game->window);
+    game->icon_click_money.draw(game->window);
     game->window->draw(player.money->sprite);
     game->window->draw(player.money->text);
     game->window->draw(player.wood->sprite);
@@ -78,6 +83,8 @@ void event_game(Game *game)
             game->click = true;
             random = rand() % 10;
             if (random == 1) {
+                game->icon_click_money.set_pos((sf::Vector2f){(float)(game->actual.x - 30 - game->movement.x), (float)(game->actual.y - 50 - game->movement.y)}, (sf::Vector2f){(float)(game->actual.x + 2 - game->movement.x), (float)(game->actual.y - 20 - game->movement.y)});
+                game->icon_click_money.add();
                 player.sound->piece->sound.play();
                 player.setMoney(1);
             }
@@ -91,6 +98,8 @@ void event_game(Game *game)
         game->click = true;
         random = rand() % 10;
         if (random == 1) {
+            game->icon_click_money.set_pos((sf::Vector2f){(float)(game->actual.x - 30 - game->movement.x), (float)(game->actual.y - 50 - game->movement.y)}, (sf::Vector2f){(float)(game->actual.x + 2 - game->movement.x), (float)(game->actual.y - 20 - game->movement.y)});
+            game->icon_click_money.add();
             player.sound->piece->sound.play();
             player.setMoney(1);
         }

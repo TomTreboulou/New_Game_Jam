@@ -71,6 +71,7 @@ class Game {
 
 		Icon icon_click_stone;
 		Icon icon_click_wood;
+		Icon icon_click_money;
 
 		Popup *popup;
 		Menu *menu;

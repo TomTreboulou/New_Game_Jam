@@ -118,7 +118,7 @@ Pnj::_targetReached()
 bool
 Pnj::movePnj(void)
 {
-    if (_clock.getElapsedTime().asSeconds() > 0.08) {
+    if (_clock.getElapsedTime().asSeconds() > 0.016) {
         _setPos();
         if ((_pos.x + _box.width / 2) >= _map[_map_idx + 1].x - 3 && \
             (_pos.x + _box.width / 2) <= _map[_map_idx + 1].x + 3 && \

@@ -34,8 +34,9 @@ Game::Game(std::string file)
 
     this->icon_click_wood = Icon(0, (sf::Vector2f){0, 0}, (sf::Vector2f){0, 0}, "assets/icon_wood.png", false);
     this->icon_click_stone = Icon(0, (sf::Vector2f){0, 0}, (sf::Vector2f){0, 0}, "assets/icon_stone.png", false);
+    this->icon_click_money = Icon(0, (sf::Vector2f){0, 0}, (sf::Vector2f){0, 0}, "assets/icon_coin.png", false);
 
-    this->window = new sf::RenderWindow(modes[0], GAME_NAME);
+    this->window = new sf::RenderWindow(modes[0], GAME_NAME, sf::Style::Fullscreen);
     this->window->setFramerateLimit(60);
     this->window->setMouseCursorVisible(false);
 	this->tex_mouse.loadFromFile("./assets/cursor.png");

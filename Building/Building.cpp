@@ -63,9 +63,9 @@ void Building::generate()
         if (this->getName() == "Forge") {
             player.setIron(1 * this->_level);
         } else if (this->getName() == "LumberMill") {
-            player.setWood(2 * this->_level);
+            player.setWood(3 * this->_level);
         } else if (this->getName() == "Quarry") {
-            player.setStone(2 * this->_level);
+            player.setStone(3 * this->_level);
         }
         _clock.restart();
     }
@@ -98,7 +98,7 @@ void Building::Update()
         player.setIron(-1 * (this->_ironFactor * (this->_level + 1)));
         this->_valid = true;
         this->_level += 1;
-        this->_value = ((this->_moneyFactor * (this->_level + 1) / 10));
+        this->_value = ((this->_moneyFactor * (this->_level + 1) / 30));
     } else {
 
     }
