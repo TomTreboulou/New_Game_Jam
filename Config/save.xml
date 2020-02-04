@@ -1,11 +1,11 @@
 <game>
-	<building name="Forge" x="750" y="1910" MoneyFactor="200" WoodFactor="100" StoneFactor="100" IronFactor="60" lvl="0"></building>
-	<building name="Hotel" x="1550" y="1670" MoneyFactor="300" WoodFactor="200" StoneFactor="125" IronFactor="40" lvl="0"></building>
-	<building name="LumberMill" x="2140" y="1380" MoneyFactor="100" WoodFactor="120" StoneFactor="30" IronFactor="20" lvl="1"></building>
-	<building name="Market" x="1560" y="630" MoneyFactor="50" WoodFactor="30" StoneFactor="30" IronFactor="30" lvl="2"></building>
-	<building name="Quarry" x="575" y="1300" MoneyFactor="100" WoodFactor="30" StoneFactor="120" IronFactor="20" lvl="1"></building>
-	<building name="Restaurant" x="1130" y="1605" MoneyFactor="200" WoodFactor="125" StoneFactor="150" IronFactor="50" lvl="1"></building>
+	<building name="Forge" x="750" y="1910" MoneyFactor="200" WoodFactor="100" StoneFactor="100" IronFactor="60" lvl="2"></building>
+	<building name="Hotel" x="1550" y="1670" MoneyFactor="300" WoodFactor="200" StoneFactor="125" IronFactor="40" lvl="3"></building>
+	<building name="LumberMill" x="2140" y="1380" MoneyFactor="100" WoodFactor="120" StoneFactor="30" IronFactor="20" lvl="5"></building>
+	<building name="Market" x="1560" y="630" MoneyFactor="50" WoodFactor="30" StoneFactor="30" IronFactor="30" lvl="11"></building>
+	<building name="Quarry" x="575" y="1300" MoneyFactor="100" WoodFactor="30" StoneFactor="120" IronFactor="20" lvl="5"></building>
+	<building name="Restaurant" x="1130" y="1605" MoneyFactor="200" WoodFactor="125" StoneFactor="150" IronFactor="50" lvl="3"></building>
 	<building name="Spawner1" x="1680" y="1040" MoneyFactor="100" WoodFactor="75" StoneFactor="100" IronFactor="20" lvl="1" id="0"></building>
 	<building name="Spawner2" x="1045" y="1110" MoneyFactor="100" WoodFactor="75" StoneFactor="100" IronFactor="20" lvl="1" id="1"></building>
-	<player money="189" wood="186" stone="95" iron="0"></player>
+	<player money="912" wood="370" stone="423" iron="1552"></player>
 </game>

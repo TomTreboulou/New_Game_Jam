@@ -61,7 +61,7 @@ void Building::generate()
 {
     if (this->isValid() && _clock.getElapsedTime().asSeconds() > 2) {
         if (this->getName() == "Forge") {
-            player.setIron(2 * this->_level);
+            player.setIron(1 * this->_level);
         } else if (this->getName() == "LumberMill") {
             player.setWood(3 * this->_level);
         } else if (this->getName() == "Quarry") {
